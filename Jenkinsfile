@@ -12,6 +12,7 @@ pipeline {
         stage('Cluster configuration') {
             steps {
                 sh """
+                set -xe
                 CTX=\$(kubectl config get-contexts | grep kind-${env.CLUSTER})
                 if [ -z "\$CTX" ]; then
                     echo "KinD cluster ${env.CLUSTER} doesn't exist; creating it"
