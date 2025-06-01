@@ -12,26 +12,11 @@ pipeline {
         stage('Cluster configuration') {
             steps {
                 sh """
-                CLUSTER="${env.CLUSTER}"
-                NAMESPACE="${env.NAMESPACE}"
-
-                CTX=\$(kubectl config get-contexts | grep kind-\${CLUSTER})
-                if [ -z "\$CTX" ]; then
-                    echo "KinD cluster \${CLUSTER} doesn't exist; creating it"
-                    kind create cluster --name \${CLUSTER}
-                else
-                    echo "KinD cluster \${CLUSTER} already exists"
-                fi
-
-                kubectl get namespace \${NAMESPACE} > /dev/null 2>&1
-                if [ \$? -ne 0 ]; then
-                    echo "Namespace \${NAMESPACE} doesn't exist; creating it"
-                    kubectl create namespace \${NAMESPACE}
-                else
-                    echo "Namespace \${NAMESPACE} already exists"
-                fi
-
-                kubectl config set-context --current --namespace \${NAMESPACE}
+                echo "KinD cluster ${env.CLUSTER} doesn't exist; creating it"
+                kind create cluster --name ${env.CLUSTER}
+                echo "Namespace ${env.NAMESPACE} doesn't exist; creating it"
+                kubectl create namespace ${env.NAMESPACE}
+                kubectl config set-context --current --namespace ${env.NAMESPACE}
                 """
             }
         }
