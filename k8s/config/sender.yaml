@@ -1,0 +1,1 @@
+backend: http://receiver-svc.web-app.svc.cluster.local:5000/message

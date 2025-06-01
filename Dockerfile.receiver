@@ -1,0 +1,12 @@
+FROM python:3.12-slim
+
+WORKDIR /
+
+COPY src/receiver.py /src/receiver.py
+COPY config/libreceiver.txt /config/requirements.txt
+
+RUN pip install -r /config/requirements.txt
+
+EXPOSE 5000
+
+ENTRYPOINT ["python", "/src/receiver.py"]

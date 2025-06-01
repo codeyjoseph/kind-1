@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: receiver-dpl
+  labels:
+    app: receiver
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: receiver
+  template:
+    metadata:
+      labels:
+        app: receiver
+    spec:
+      containers:
+      - name: receiver
+        image: kind-receiver-py
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000

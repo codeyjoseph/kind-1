@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sender-dpl
+  labels:
+    app: sender
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sender
+  template:
+    metadata:
+      labels:
+        app: sender
+    spec:
+      containers:
+      - name: sender
+        image: kind-sender-py
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
+        volumeMounts:
+            - name: sender-config
+              mountPath: /config/sender.yaml
+              subPath: sender.yaml
+      volumes:
+        - name: sender-config
+          configMap:
+            name: sender-config
