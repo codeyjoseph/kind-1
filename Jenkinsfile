@@ -12,9 +12,6 @@ pipeline {
         stage('Cluster configuration') {
             steps {
                 sh """
-                echo "KinD cluster ${env.CLUSTER} doesn't exist; creating it"
-                kind create cluster --name ${env.CLUSTER}
-                echo "Namespace ${env.NAMESPACE} doesn't exist; creating it"
                 kubectl create namespace ${env.NAMESPACE}
                 kubectl config set-context --current --namespace ${env.NAMESPACE}
                 """
