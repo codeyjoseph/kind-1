@@ -12,7 +12,6 @@ pipeline {
         stage('Cluster configuration') {
             steps {
                 sh """
-                kubectl create namespace ${env.NAMESPACE}
                 kubectl config set-context --current --namespace ${env.NAMESPACE}
                 """
             }
