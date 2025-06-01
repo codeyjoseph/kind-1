@@ -66,7 +66,7 @@ pipeline {
                 sh """
                 echo "Waiting 30 seconds for program to run"
                 sleep 30
-                POD=\$(kubectl get pods --no-headers | grep receiver | awk '{print $1}' | head -n1)
+                POD=\$(kubectl get pods --no-headers | grep receiver | awk '{print \$1}' | head -n1)
                 echo "Checking logs of pod \$POD"
                 kubectl logs \$POD
                 """
